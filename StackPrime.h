@@ -3,7 +3,7 @@
 #include <iostream>
 
 using namespace std;
-template<class S>
+template <class p>
 
 class Stack
 {
@@ -11,14 +11,15 @@ class Stack
 
         Stack(int);
         ~Stack();
-        bool push(const S&);
-        bool pop(S&);
         bool empty() const;
         bool full() const;
+        bool push(const p&);
+        bool pop(p&);
 
     private:
-    
+
         int size;
         int top;
-        S* d;
+        p* prime;
 };
+

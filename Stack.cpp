@@ -1,55 +1,69 @@
-#include "Stack.h"
+﻿#include "Stack.h"
 
-Stack::Stack()
+template<class S>
+Stack<S> ::Stack(int n)
 {
-    length = 0;
+	if (n > 0 && n < 1000)
+		size = n;
+	else
+		size = 10;  //cơ bản là 10
+	top = -1;
+	d = new S[size];
 }
 
-void Stack::push(int i)
+template<class S>
+Stack<S>::~Stack()
 {
-    if (full()) 
-    {
-        cout << "Stack is full" << endl;
-    }
-    else {
-        list[length] = i;
-        length++;
-    }
+	delete[] d;
 }
 
-bool Stack::empty()
+template<class S>
+bool Stack<S>::push(const S& i)
 {
-    if (length == 0) 
-        return true;
+	if (!full())
+	{
+		top++;
+		d[top] = i;
+		return true;
+	}
+	return false;
 }
 
-bool Stack::full()
+template<class S>
+bool Stack<S>::pop(S& i)
 {
-    if (length == 10) 
-        return true;
+	if (!empty())
+	{
+		i = d[top];
+		top--;
+		return true;
+	}
+	return false;
 }
 
-int Stack::top()
+template<class S>
+bool Stack<S>::empty() const
 {
-    int value;
-    value = list[length - 1];
-
-    return value;
+	if (top == -1)
+		return true;
+	return false;
 }
 
-bool Stack::pop()
+template<class S>
+bool Stack<S>::full() const
 {
-    int x;
-    x = top();
+	if (top == size)
+		return true;
+	return false;
+}
 
-    if (empty()) 
-    {
-        cout << "Stack is empty" << endl;
-        return false;
-    }
-    else 
-    {
-        length--;
-        return true;
-    }
+int main()
+{
+	Stack<int> a(10);
+	for (int i = 0; i < 5; i++)
+		a.push(i);
+	int data;
+	while (a.pop(data))
+		cout << data << endl;
+	return 0;
 }
